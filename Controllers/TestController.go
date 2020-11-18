@@ -16,7 +16,7 @@ func Welcome(c *gin.Context) {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-
+	//test commit
 	var model Model.UserModelDb
 	db.Model(&user).Find(&model)
 
