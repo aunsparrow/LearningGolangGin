@@ -28,9 +28,10 @@ func Welcome(c *gin.Context) {
 	res = nil
 
 	c.JSON(http.StatusOK, gin.H{
-		"status":  200,
-		"message": "Welcomsdasdsadasdsadsae To API",
-		"resualt": res,
+		"issuccess": "true",
+		"status":    200,
+		"message":   "Welcomsdasdsadasdsadsae To API",
+		"resualt":   res,
 	})
 	return
 }

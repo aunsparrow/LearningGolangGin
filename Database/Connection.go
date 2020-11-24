@@ -2,6 +2,7 @@ package Database
 
 import (
 	"fmt"
+	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -18,8 +19,11 @@ const (
 )
 
 func Open() (*gorm.DB, error) {
-	dsn := "user=postgres password=1412 dbname=testgorm port=5432 sslmode=disable TimeZone=Asia/Bangkok"
+	dsn := fmt.Sprintf(`user=%v password=%v dbname=%v port=%v `+
+		`sslmode=disable TimeZone=Asia/Bangkok`, os.Getenv("PG_USER"), os.Getenv("PG_PASSWORD"),
+		os.Getenv("PG_DATABASENAME"), os.Getenv("PG_PORT"))
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	fmt.Println(dsn)
 	if err != nil {
 		fmt.Println("error")
 	}
