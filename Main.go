@@ -3,7 +3,7 @@ package main
 import (
 	Controllers "api/Controllers"
 	env "api/Env"
-	"api/Migration"
+	Migration "api/Migration/Migrate"
 	"fmt"
 	"log"
 	"os"
