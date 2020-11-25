@@ -12,7 +12,6 @@ import (
 )
 
 func main() {
-	fmt.Println("test gorm")
 	switch os.Getenv("ENV") {
 	case "prod":
 		fmt.Println("Prod")

@@ -1,37 +1,22 @@
 package Controllers
 
 import (
-	Database "api/Database"
-	DbModel "api/Migration"
-	Model "api/models/models"
-	"fmt"
+	Model "api/Models/Models"
+	Response "api/Models/ResponseModels"
+	Service "api/Services"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 func Welcome(c *gin.Context) {
-	var user DbModel.User
-	db, err := Database.Open()
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	//test commit .....
-	var model Model.UserModelDb
-	db.Model(&user).Find(&model)
 
-	var res interface{}
-	if model.UserId.String == "" {
-		res = Model.UserModel{model.UserId.String, model.FirstName.String, model.LastName.String,
-			int(model.Age.Int32), int(model.Status.Int32), model.CreateAt.String}
-	}
-	res = nil
-
-	c.JSON(http.StatusOK, gin.H{
-		"issuccess": "true",
-		"status":    200,
-		"message":   "Welcomsdasdsadasdsadsae To API",
-		"resualt":   res,
-	})
+	chGetAll := make(chan []Model.UserModel, 1)
+	go func() {
+		chGetAll <- Service.TestService()
+	}()
+	getAll := <-chGetAll
+	response := Response.ResponseModel{"true", http.StatusOK, getAll, "Welcome To API"}
+	c.JSON(http.StatusOK, response)
 	return
 }

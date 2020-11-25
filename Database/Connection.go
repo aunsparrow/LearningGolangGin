@@ -23,7 +23,6 @@ func Open() (*gorm.DB, error) {
 		`sslmode=disable TimeZone=Asia/Bangkok`, os.Getenv("PG_USER"), os.Getenv("PG_PASSWORD"),
 		os.Getenv("PG_DATABASENAME"), os.Getenv("PG_PORT"))
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	fmt.Println(dsn)
 	if err != nil {
 		fmt.Println("error")
 	}
