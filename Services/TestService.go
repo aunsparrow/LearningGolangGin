@@ -1,21 +1,19 @@
 package Services
 
 import (
-	Database "api/Database"
-	DbModel "api/Migration"
-	Model "api/Models/Models"
+	Model "api/Migration"
+	Repo "api/Repositories/TestRepository"
+	Repo2 "api/Repositories/TestRepository2"
 	"fmt"
 )
 
-func TestService() []Model.UserModel {
-	var user DbModel.User
-	var res []Model.UserModel = make([]Model.UserModel, 0)
-	db, err := Database.Open()
+func TestService() ([]Model.User, error) {
+	testData, err := Repo.GetAll()
+	_ = testData
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-
-	db.Model(&user).Find(&res)
-
-	return res
+	testData2, err := Repo2.GetAll()
+	fmt.Println(testData2)
+	return testData, err
 }

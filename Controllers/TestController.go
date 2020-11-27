@@ -1,7 +1,7 @@
 package Controllers
 
 import (
-	Model "api/Models/Models"
+	Model "api/Migration"
 	Response "api/Models/ResponseModels"
 	Service "api/Services"
 	"net/http"
@@ -11,9 +11,10 @@ import (
 
 func Welcome(c *gin.Context) {
 
-	chGetAll := make(chan []Model.UserModel, 1)
+	chGetAll := make(chan []Model.User, 1)
 	go func() {
-		chGetAll <- Service.TestService()
+		a, _ := Service.TestService()
+		chGetAll <- a
 	}()
 	getAll := <-chGetAll
 	response := Response.ResponseModel{"true", http.StatusOK, getAll, "Welcome To API"}
